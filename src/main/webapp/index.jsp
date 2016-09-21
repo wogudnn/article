@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%
+	String name=request.getParameter("name");
+	if(name==null){
+		name="jhlee";
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	안녕하세요
+	<a href="./hr.jsp">hr.jsp</a>
+	안녕하세요<%= name %>님
 	src/main/webapp 아래에 index.jsp를 만들어 넣으면,<br/>
 	주소에 index.jsp를 적지 않아도 바로 볼 수 있다.<br/>
 	다른 file 이름을 사용한다면, 주소에 파일 명과 .jsp를 적어야 한다.<br/>

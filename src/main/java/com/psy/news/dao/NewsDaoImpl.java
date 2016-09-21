@@ -209,7 +209,7 @@ public class NewsDaoImpl implements NewsDao {
  }
 
  @Override
- public List<NewsVO> getNewsesOf() {
+ public List<NewsVO> getNewsesOf(int categoryId) {
   
   try {
    Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -243,8 +243,10 @@ public class NewsDaoImpl implements NewsDao {
    query.append("        , JRNLST J ");
    query.append("WHERE   N.JRNLST_ID = J.JRNLST_ID ");
    query.append("AND     N.CTGR_ID = G.CTGR_ID ");
+   query.append("AND     G.CTGR_ID = ? ");
    
    pstmt = conn.prepareStatement(query.toString());
+   pstmt.setInt(1, categoryId);
    rs = pstmt.executeQuery();
    
    List<NewsVO> newses = new ArrayList<NewsVO>();
@@ -483,6 +485,72 @@ public class NewsDaoImpl implements NewsDao {
 			} catch (SQLException e) {}
 		 }
 	 }
+	}
+ @Override
+	public List<CategoryVO> getCategories() {
+	 
+	 try {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+	} catch (ClassNotFoundException e) {
+		throw new RuntimeException(e.getMessage(), e);
+	}
+	 
+	 Connection conn = null;
+	 PreparedStatement pstmt = null;
+	 ResultSet rs = null;
+	 
+	 try {
+		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","NEWS","NEWS");
+		StringBuffer query = new StringBuffer();
+		query.append(" SELECT	CTGR_ID ");
+		query.append(" 			, ( ");
+		query.append(" 				SELECT	CTGR_NM ");
+		query.append(" 				FROM	CTGR ");
+		query.append(" 				WHERE	C1.PRNT_CTGR_ID = CTGR_ID ");
+		query.append(" 				) || '-' || CTGR_NM CTGR_NM ");
+		query.append(" FROM		CTGR C1 ");
+		query.append(" WHERE	NOT	EXISTS ( ");
+		query.append("						SELECT	'1' ");
+		query.append("						FROM	CTGR C2 ");
+		query.append("						WHERE	C1.CTGR_ID = C2.PRNT_CTGR_ID ");
+		query.append("						) ");
+		
+		pstmt = conn.prepareStatement(query.toString());
+		rs = pstmt.executeQuery();
+		List<CategoryVO> categories = new ArrayList<CategoryVO>();
+		CategoryVO categoryVO = null;
+		while(rs.next()){
+			categoryVO = new CategoryVO();
+			categoryVO.setCategoryId(rs.getInt("CTGR_ID"));
+			categoryVO.setCategoryName(rs.getString("CTGR_NM"));
+			
+			categories.add(categoryVO);
+		}
+		
+		return categories;
+		
+	} 
+	 catch (SQLException e) {
+		throw new RuntimeException(e.getMessage(), e);
+	}
+	 finally{
+		 if(rs != null){
+			 try {
+				rs.close();
+			} catch (SQLException e) {}
+		 }
+		 if( pstmt != null) {
+			 try {
+				pstmt.close();
+			} catch (SQLException e) {}
+		 }
+		 if(conn != null) {
+			 try {
+				conn.close();
+			} catch (SQLException e) {}
+		 }
+	 }
+	 
 	}
 }
 

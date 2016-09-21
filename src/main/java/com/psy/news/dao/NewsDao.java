@@ -39,7 +39,7 @@ public interface NewsDao {
 	 * @param categoryId 지정 카테고리 아이디
 	 * @return
 	 */
-	public List<NewsVO> getNewsesOf();
+	public List<NewsVO> getNewsesOf(int categoryId);
 	/**
 	 * 기사하나를 가져온다.
 	 * @param newsId
@@ -55,4 +55,6 @@ public interface NewsDao {
 	
 	
 	public void deleteNews(int newsId);
+	
+	public List<CategoryVO> getCategories();
 }

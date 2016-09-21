@@ -22,7 +22,12 @@
 
 	<h1>EMPLOYEES</h1>
 	<hr/>
+	<a href="http://www.naver.com">네이버로가기</a>,
+	<a href="http://www.daum.net">다음으로가기</a>,
+	<a href="http://www.google.com" target="_blank">구글로가기</a>
 	
+	
+	<a href="./index.jsp?name=jhlee">index.jsp로 가기</a>
 	<table style="width: 100%; border-collapse: collapse; border: 1px solid #000000; background-color: #CCCCCC;">
 		<tr style="heigtht: 50px;">
 			<th>EMPLOYEE_ID</th>
@@ -42,7 +47,6 @@
 	EmployeesVO employee = null; //사원 하나 받기위한 임시 객체
 	for(int i = 0 ; i < employeesSize ; i++) {
 		employee = employees.get(i);
-		out.print(employee.getEmployeeId());
 %>
 		<tr>
 			<td><%=employee.getEmployeeId()%></td>
