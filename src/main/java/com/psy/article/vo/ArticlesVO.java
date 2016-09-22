@@ -5,7 +5,35 @@ public class ArticlesVO {
 	private String subject;
 	private String content;
 	private String creatDate;
+	private int categoryId;
 	
+	private CategoryVO categoryVO;
+	
+	public ArticlesVO(){
+		categoryVO = new CategoryVO();
+	}
+	
+	
+	public int getCategoryId() {
+		return categoryId;
+	}
+
+
+
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+
+
+
+	public CategoryVO getCategoryVO() {
+		return categoryVO;
+	}
+
+	public void setCategoryVO(CategoryVO categoryVO) {
+		this.categoryVO = categoryVO;
+	}
+
 	public int getArticleId() {
 		return articleId;
 	}

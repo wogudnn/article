@@ -244,6 +244,7 @@ public class NewsDaoImpl implements NewsDao {
    query.append("WHERE   N.JRNLST_ID = J.JRNLST_ID ");
    query.append("AND     N.CTGR_ID = G.CTGR_ID ");
    query.append("AND     G.CTGR_ID = ? ");
+   query.append("ORDER	 BY N.NEWS_ID DESC ");
    
    pstmt = conn.prepareStatement(query.toString());
    pstmt.setInt(1, categoryId);

@@ -61,7 +61,6 @@
 		<tr style="height: 20px">
 			<th>News ID</th>
 			<th>Subject</th>
-			<th>Content</th>
 			<th>Recommend Count</th>
 			<th>Journalist ID</th>
 			<th>Category ID</th>
@@ -75,12 +74,12 @@
 
 %>
 		<tr style="border-top: 1px solid #000000; color: #ffffff;">
-			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getNewsId() %></td>
-			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getSubject() %></td>
-			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getContents() %></td>
+			<td style="text-align:left; border-left: 1px solid #000000;"><%=news.getNewsId() %></td>
+			<td style="text-align:center; border-left: 1px solid #000000;">
+			<a href="./detail.jsp?newsId=<%=news.getNewsId() %>"><%=news.getSubject() %></a></td>
 			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getRecommendCount() %></td>
-			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getJournalistId() %></td>
-			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getCategoryId() %></td>
+			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getJournalistVO().getJournalistName() %></td>
+			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getCategoryVO().getCategoryName() %></td>
 			<td style="text-align:center; border-left: 1px solid #000000;"><%=news.getCreatedDate() %></td>
 		</tr>
 <%
